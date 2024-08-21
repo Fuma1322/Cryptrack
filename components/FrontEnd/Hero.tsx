@@ -1,8 +1,47 @@
 'use client'
 
+import { fetchCryptoData, fetchCryptoPriceHistory } from "@/lib/api";
+import SearchInput from "./SearchInput"
+import { useState } from "react";
+import CryptoDetails from "./CryptoDetails";
+import PriceChart from "./PriceChart";
+
 
 
 export default function Hero() {
+  const [cryptoData, setCryptoData] = useState<any>(null);
+  const [priceHistory, setPriceHistory] = useState<number[]>([]);
+  const [labels, setLabels] = useState<string[]>([]);
+
+  const handleSearch = async (query: string) => {
+    try {
+      const data = await fetchCryptoData(query);
+      if (data && data.length > 0) {
+        const crypto = data[0];
+        setCryptoData(crypto);
+
+        const history = await fetchCryptoPriceHistory(crypto.id);
+        setPriceHistory(
+          history.prices.map((price: [number, number]) => price[1])
+        );
+        setLabels(
+          history.prices.map((price: [number, number]) =>
+            new Date(price[0]).toLocaleDateString()
+          )
+        );
+      } else {
+        setCryptoData(null);
+        setPriceHistory([]);
+        setLabels([]);
+        console.warn('No cryptocurrency data found for the search query.');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setCryptoData(null);
+      setPriceHistory([]);
+      setLabels([]);
+    }
+  };
 
   return (
     <div className="">
@@ -20,8 +59,23 @@ export default function Hero() {
           />
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="flex flex-col gap-10 items-center p-6">
-            {/* <SearchInput /> */}
+          <div className="flex flex-col gap-10 items-center py-6">
+          <SearchInput onSearch={handleSearch} />
+          {cryptoData && (
+        <div>
+          <CryptoDetails
+            name={cryptoData.name}
+            symbol={cryptoData.symbol}
+            price={cryptoData.current_price}
+            priceChange24h={cryptoData.price_change_percentage_24h}
+            marketCap={cryptoData.market_cap}
+            volume={cryptoData.total_volume}
+          />
+          <div className="mb-14">
+            <PriceChart prices={priceHistory} labels={labels} />
+          </div>
+        </div>
+          )}
           </div>
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           </div>

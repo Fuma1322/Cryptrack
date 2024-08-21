@@ -1,4 +1,5 @@
 import React from 'react';
+import { Meteors } from '../ui/meteors';
 
 interface CryptoDetailsProps {
   name: string;
@@ -18,47 +19,38 @@ const CryptoDetails: React.FC<CryptoDetailsProps> = ({
   volume,
 }) => {
   return (
-    <div className="p-4 border rounded-md bg-white dark:bg-black shadow-md">
-      <h2 className="text-2xl font-bold mb-4">{name} ({symbol.toUpperCase()})</h2>
-      
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Price</label>
-        <input
-          type="text"
-          value={`$${price.toFixed(2)}`}
-          readOnly
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">24h Change</label>
-        <input
-          type="text"
-          value={`${priceChange24h.toFixed(2)}%`}
-          readOnly
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Market Cap</label>
-        <input
-          type="text"
-          value={`$${marketCap.toLocaleString()}`}
-          readOnly
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Volume</label>
-        <input
-          type="text"
-          value={`$${volume.toLocaleString()}`}
-          readOnly
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-100"
-        />
+    <div className="">
+      <div className=" w-full relative max-w-xs">
+        <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-700 transform scale-[0.30] bg-red-500 blur-3xl" />
+        <div className="relative shadow-xl border px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start">
+          <div className="h-5 w-5 rounded-full border flex items-center justify-center mb-4 border-gray-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="h-2 w-2 dark:text-gray-300 text-gray-950"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25"
+              />
+            </svg>
+          </div>
+ 
+          <h1 className="font-bold text-xl dark:text-white text-black mb-4 relative z-50">
+          {name} ({symbol.toUpperCase()})
+          </h1>
+          <p>Price: ${price.toFixed(2)}</p>
+          <p>24h Change: {priceChange24h.toFixed(2)}%</p>
+          <p>Market Cap: ${marketCap.toLocaleString()}</p>
+          <p>Volume: ${volume.toLocaleString()}</p>
+ 
+          {/* Meaty part - Meteor effect */}
+          <Meteors number={20} />
+        </div>
       </div>
     </div>
   );

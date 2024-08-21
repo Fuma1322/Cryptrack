@@ -34,7 +34,7 @@ const PriceChart: React.FC<{ prices: number[], labels: string[] }> = ({ prices, 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Price Trend</CardTitle>
+        <CardTitle className='font-bold'>Price Trend</CardTitle>
         <CardDescription>Last 7 days</CardDescription>
       </CardHeader>
       <CardContent>
