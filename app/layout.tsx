@@ -5,8 +5,6 @@ import { siteConfig } from '@/config/site'
 import { Inter as FontSans } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/ui/theme-provider'
-import SiteHeader from '@/components/FrontEnd/Navbar'
-import Footer from '@/components/FrontEnd/Footer'
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -55,9 +53,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
              >
-              <SiteHeader />
               {children}
-              <Footer />
             </ThemeProvider>
           </Providers>
         </body>

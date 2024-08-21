@@ -5,6 +5,7 @@ import SearchInput from "./SearchInput"
 import { useState } from "react";
 import CryptoDetails from "./CryptoDetails";
 import PriceChart from "./PriceChart";
+import CryptoTable from "./CryptoTable";
 
 
 
@@ -13,6 +14,7 @@ export default function Hero() {
   const [priceHistory, setPriceHistory] = useState<number[]>([]);
   const [labels, setLabels] = useState<string[]>([]);
 
+  //Handling search logic from the api endpoint
   const handleSearch = async (query: string) => {
     try {
       const data = await fetchCryptoData(query);
@@ -60,6 +62,7 @@ export default function Hero() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="flex flex-col gap-10 items-center py-6">
+            {/* Search Bar With returned Cryptodata on Search */}
           <SearchInput onSearch={handleSearch} />
           {cryptoData && (
         <div>
@@ -77,14 +80,9 @@ export default function Hero() {
         </div>
           )}
           </div>
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-          </div>
-          <div className="text-center">
-            {/* <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-              fugiat veniam occaecat fugiat aliqua.
-            </p> */}
-          </div>
+        </div>
+        <div>
+        <CryptoTable />  
         </div>
         <div
           aria-hidden="true"
