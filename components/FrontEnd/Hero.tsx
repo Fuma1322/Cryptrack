@@ -60,8 +60,8 @@ export default function Hero() {
             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-50 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] dark:bg-gradient-to-r dark:from-slate-500 dark:to-slate-300 dark:opacity-20 dark:sm:left-[calc(50%-30rem)] dark:sm:w-[72.1875rem]"
           />
         </div>
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="flex flex-col gap-10 items-center py-6">
+        <div className="mx-auto max-w-2xl py-20 sm:py-48 lg:py-56">
+          <div className="flex flex-col gap-10 items-center">
             {/* Search Bar With returned Cryptodata on Search */}
           <SearchInput onSearch={handleSearch} />
           {cryptoData && (
@@ -74,7 +74,7 @@ export default function Hero() {
             marketCap={cryptoData.market_cap}
             volume={cryptoData.total_volume}
           />
-          <div className="mb-14">
+          <div className="py-8">
             <PriceChart prices={priceHistory} labels={labels} />
           </div>
         </div>
