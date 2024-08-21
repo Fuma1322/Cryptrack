@@ -17,20 +17,33 @@ export default function Hero() {
   //Handling search logic from the api endpoint
   const handleSearch = async (query: string) => {
     try {
-      const data = await fetchCryptoData(query);
+      const data = await fetchCryptoData(query.toLowerCase());
+      
       if (data && data.length > 0) {
-        const crypto = data[0];
-        setCryptoData(crypto);
-
-        const history = await fetchCryptoPriceHistory(crypto.id);
-        setPriceHistory(
-          history.prices.map((price: [number, number]) => price[1])
+        const crypto = data.find(
+          (item: any) =>
+            item.name.toLowerCase() === query.toLowerCase() ||
+            item.symbol.toLowerCase() === query.toLowerCase()
         );
-        setLabels(
-          history.prices.map((price: [number, number]) =>
-            new Date(price[0]).toLocaleDateString()
-          )
-        );
+  
+        if (crypto) {
+          setCryptoData(crypto);
+  
+          const history = await fetchCryptoPriceHistory(crypto.id);
+          setPriceHistory(
+            history.prices.map((price: [number, number]) => price[1])
+          );
+          setLabels(
+            history.prices.map((price: [number, number]) =>
+              new Date(price[0]).toLocaleDateString()
+            )
+          );
+        } else {
+          setCryptoData(null);
+          setPriceHistory([]);
+          setLabels([]);
+          console.warn('No cryptocurrency data found for the search query.');
+        }
       } else {
         setCryptoData(null);
         setPriceHistory([]);
@@ -44,6 +57,7 @@ export default function Hero() {
       setLabels([]);
     }
   };
+  
 
   return (
     <div className="">

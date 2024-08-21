@@ -48,7 +48,7 @@ export default function Footer() {
                     </ul>
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-                <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© {new Date().getFullYear()} <a href="https://cryptrack-five.vercel.app" className="hover:underline">Cryptrack™</a>. All Rights Reserved.</span>
+                <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400" style={{zIndex:9999}}>© {new Date().getFullYear()} <Link href="https://cryptrack-five.vercel.app" className="hover:underline" style={{zIndex:9999}}>Cryptrack™</Link>. All Rights Reserved.</span>
             </div>
         </footer>
     </div>
